@@ -1,7 +1,7 @@
 <script setup>
 // defineProps(["title", "id", "body"]);
 
-defineProps({
+const props = defineProps({
   title: String,
   id: Number,
   body: {
@@ -9,6 +9,14 @@ defineProps({
     default: "Sin descripcion",
   },
 });
+
+const emit = defineEmits(['select-favorite'])
+
+
+const marcarFavorito = () => {
+  emit ("select-favorite" , props.title)
+}
+
 </script>
 
 <template>
@@ -17,7 +25,7 @@ defineProps({
       <h5 class="card-title">{{ id }} - {{ title }}</h5>
       <p>{{ body }}</p>
       <button
-        @click="$emit('cambiarFavorito', title)"
+        @click="marcarFavorito"
         class="btn btn-outline-primary"
       >
         Favoritos
