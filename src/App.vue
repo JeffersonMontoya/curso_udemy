@@ -4,14 +4,14 @@ import { ref , onMounted } from "vue";
 import PaginatePost from "./components/PaginatePost.vue";
 import LoadingSpinner from "./components/LoadingSpinner.vue";
 
-const posts = ref("");
+const posts = ref([]);
 
 const favoritoTitle = ref("");
 const postXpage = 10;
 const inicio = ref(0);
 const fin = ref(postXpage);
 
-const loading = ref(false);
+const loading = ref(true);
 
 const next = () => {
   inicio.value = inicio.value + postXpage;
@@ -23,8 +23,13 @@ const preview = () => {
   fin.value = fin.value - postXpage;
 };
 
-onMounted(async () => {
-  loading.value = true
+
+const setFavorite = (title) => {
+  favoritoTitle.value = title;
+};
+
+
+const fetchData  = async () => {
   try {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
     posts.value = await res.json();
@@ -35,23 +40,10 @@ onMounted(async () => {
       loading.value = false;
     }, 2000);
   }
-});
+}
 
-const setFavorite = (title) => {
-  favoritoTitle.value = title;
-};
+fetchData()
 
-// fetch("https://jsonplaceholder.typicode.com/posts")
-//   .then((res) => res.json())
-//   .then((data) => {
-//     posts.value = data;
-//   })
-//   .catch((e) => console.error(e))
-//   .finally(() => {
-//     setTimeout(() => {
-//       loading.value = false;
-//     }, 2000);
-//   });
 </script>
 
 <template>
