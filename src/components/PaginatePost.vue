@@ -1,5 +1,9 @@
 <script setup>
 const emit = defineEmits(["next", "preview"]);
+
+
+defineProps(["inicio", "fin", "maxLength"]);
+
 </script>
 
 <template>
@@ -8,10 +12,17 @@ const emit = defineEmits(["next", "preview"]);
       @click="emit('preview')"
       type="button"
       class="btn btn-outline-primary"
+      :disabled="inicio === 0 "
     >
-      Preview
+    Preview
     </button>
-    <button @click="emit('next')" type="button" class="btn btn-outline-primary">
+    <button
+     @click="emit('next')" 
+     type="button"
+      class="btn btn-outline-primary "
+      :disabled="fin >= maxLength"
+      
+      >
       Next
     </button>
   </div>
