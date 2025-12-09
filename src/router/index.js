@@ -18,7 +18,12 @@ const routes = [
     name: "poke",
     component: () => import('../views/PokeView.vue')
   },
-
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
+  }
+  
 
 
 ];
