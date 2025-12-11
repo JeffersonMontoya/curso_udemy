@@ -6,6 +6,7 @@
       <div class="links">
         <router-link class="link" to="/">Home</router-link>
         <router-link class="link" to="/pokemon">Pokemon</router-link>
+        <router-link class="link" to="/favoritos">Favoritos</router-link>
       </div>
     </div>
   </nav>

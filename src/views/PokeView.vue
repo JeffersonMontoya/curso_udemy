@@ -2,10 +2,15 @@
 import { useRoute, useRouter } from "vue-router";
 import { useGetData } from "@/composables/getData";
 
+import { useFavoritosStore } from "@/store/favoritos";
+
 const route = useRoute();
 const router = useRouter();
 
-const { getData, data, loading , errorData} = useGetData();
+const useFavoritos = useFavoritosStore();
+const { add } = useFavoritos;
+
+const { getData, data, loading, errorData } = useGetData();
 
 getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
 
@@ -24,7 +29,10 @@ const back = () => {
 
       <h1 class="title">Poke Name: {{ $route.params.name }}</h1>
 
-      <button @click="back" class="btn-back">Volver</button>
+      <div class="btn">
+        <button @click="back" class="btn-back">Volver</button>
+        <button @click="add(data)" class="btn-back">Agregar Favoritos</button>
+      </div>
     </div>
   </div>
 </template>
@@ -76,20 +84,40 @@ const back = () => {
   color: #1e1e2f;
 }
 
+.btn {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 23px;
+}
+
 .btn-back {
-  padding: 0.9rem 1.9rem;
+  padding: 0.55rem 1.2rem;
+  min-width: 110px;
+  text-align: center;
+
+
   background: linear-gradient(135deg, #6366f1, #8b5cf6, #3b82f6);
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 1.15rem;
+
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  letter-spacing: 0.3px;
+
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
 }
 
 .btn-back:hover {
-  transform: scale(1.07);
-  opacity: 0.9;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  opacity: 0.93;
+}
+
+.btn-back:active {
+  transform: scale(0.96);
 }
 </style>
